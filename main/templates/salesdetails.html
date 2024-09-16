@@ -1,0 +1,233 @@
+﻿{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+<div class="body-wrapper">
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-header text-bg-success">
+        <h5 class="mb-0 text-white">Sales Details</h5>
+      </div>
+      <form class="form-horizontal">
+        <div class="form-body">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="form-label text-md-end col-md-4">Party Name :</label>
+                  <div class="col-md-8">
+                    <p class="form-control-static">{{data.PartyName}}</p>
+                  </div>
+                </div>
+              </div>
+              <!--/span-->
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="form-label text-md-end col-md-4">Invoice No. :</label>
+                  <div class="col-md-8">
+                    <p class="form-control-static">{{data.InvoiceNo}}</p>
+                  </div>
+                </div>
+              </div>
+              <!--/span-->
+            </div>
+            <!--/row-->
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="form-label text-md-end col-md-4">Delivery Boy Name :</label>
+                  <div class="col-md-8">
+                    <p class="form-control-static">
+                      {{data.DeliveryBoyName}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="form-label text-md-end col-md-4">Type Of Business:</label>
+                  <div class="col-md-8">
+                    <p class="form-control-static">{{data.TypeOfBusiness}}</p>
+                  </div>
+                </div>
+              </div>
+              <!--/span-->
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="form-label text-md-end col-md-4">Delivery Time :</label>
+                  <div class="col-md-8">
+                    <p class="form-control-static">{{data.DeliveryTime}}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="form-label text-md-end col-md-4">Amount :</label>
+                  <div class="col-md-8">
+                    <p class="form-control-static">{{data.Amount}}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="form-label text-md-end col-md-4">Sales Date :</label>
+                  <div class="col-md-8">
+                    <p class="form-control-static">{{data.date}}</p>
+                  </div>
+                </div>
+              </div>
+              <!--/span-->
+            </div>
+            <div class="row justify-content-center">
+              <h4 class="text-center mb-3">Products</h4>
+              <div class="col-11 table-responsive p-1">  
+                <table class="table table-striped table-bordered display text-nowrap" id="thad">
+                  <thead>
+                    <tr class="p-0">
+                      <th class="p-2">Prodect <br> Name</th>
+                      <th class="p-2">Quantity</th>
+                      <th class="p-2">Purchase <br>Inc. <br> Tax Price</th>
+                      <th class="p-2">Profit <br> Margin</th>
+                      <th class="p-2">Loss <br> Margin</th>
+                      <th class="p-2">Basic Sales <br> Price <br> ( Per. Unit )</th>
+                      <th class="p-2">Discount</th>
+                      <th class="p-2">Sales price <br> After Discount <br> ( Per. Unit )</th>
+                      <th class="p-2">SGST</th>
+                      <th class="p-2">CGST</th>
+                      <th class="p-2">IGST</th>
+                      <th class="p-2">Inc. Sales <br> Price</th>
+                      <th class="p-2">Total Sales</th>
+                      <th class="p-2">MRP</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tbody">
+                    {% for i in stock %}
+                      <tr>
+                        <td class="p-2">{{i.ProductName}}</td>
+                        <td class="p-2">{{i.Quantity}}</td>
+                        <td class="p-2">{{i.PurchaseIncTax}}</td>
+                        <td class="p-2">{{i.ProfitMargin}}</td>
+                        <td class="p-2">{{i.LossMargin}}</td>
+                        <td class="p-2">{{i.BasicSalesPrice}}</td>
+                        <td class="p-2">{{i.Discount}}</td>
+                        <td class="p-2">{{i.SalesPriceAfterDiscount}}</td>
+                        {% if i.Tax == '5' %}
+                        <td class="p-2">2.5 %</td>
+                        <td class="p-2">2.5 %</td>
+                        {% endif %}
+                        {% if i.Tax == '12' %}
+                        <td class="p-2">6 %</td>
+                        <td class="p-2">6 %</td>
+                        {% endif %}
+                        {% if i.Tax == '18' %}
+                        <td class="p-2">9 %</td>
+                        <td class="p-2">9 %</td>
+                        {% endif %}
+                        {% if i.Tax == '28' %}
+                        <td class="p-2">14 %</td>
+                        <td class="p-2">14 %</td>
+                        {% endif %}
+                        {% if i.Tax == 'TaxFree'  %}
+                        <td class="p-2">0</td>
+                        <td class="p-2">0</td>
+                        {% endif %}
+                        <td class="p-2">0</td>
+                        <td class="p-2">{{i.IncSalesPrice}}</td>
+                        <td class="p-2">{{i.TotalSales}}</td>
+                        <td class="p-2">{{i.Amount}}</td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <th colspan="">Total :</th>
+                      <th>{{quantity}}</th>
+                      <th>{{purchaseprice}}</th>
+                      <th></th>
+                      <th></th>
+                      <th>{{bsp}}</th>
+                      <th></th>
+                      <th>{{sp}}</th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th>{{isp}}</th>
+                      <th colspan="1">
+                        <span id="tamount2">{{tamonut}}</span>
+                      </th>
+
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+            <div class="row justify-content-center">
+              <h4 class="text-center mb-3">Charges</h4>
+              <div class="col-11 table-responsive p-1">  
+                <table class="table table-striped table-bordered display text-nowrap" id="thad">
+                  <thead>
+                    <tr class="p-0">
+                      <th class="p-2">Charge Name</th>
+                      <th class="p-2">Amount</th>
+                      <th class="p-2">Tax</th>
+                      <th class="p-2">Total Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tbody">
+                    {% for i in Charges %}
+                      <tr>
+                        <td>{{i.Charges}}</td>
+                        <td>{{i.Amount}}</td>
+                        <td>{{i.Tax}}</td>
+                        <td>{{i.TotalAmount}}</td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <th colspan="p-2">Total :</th>
+                      <th>{{CA}}</th>
+                      <th></th>
+                      <th colspan="1" class="p-2">
+                        {{TCA}}
+                      </th>
+                    </tr>
+                    <tr>
+                      <th class="p-2" colspan="3">
+                        Total Bill Amount :
+                      </th>
+                      <th class="p-2" colspan="2">
+                        <span id="tamount4">{{data.Amount}}</span>
+                      </th>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="form-actions border-top">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col d-flex justify-content-end">
+                      <a href="/SalesBill/{{data.id}}" class="btn btn-success">
+                        <i class="ti ti-printer fs-5"></i>
+                        Print
+                      </a>
+                      <a class="btn btn-danger ms-6" onclick="window.history.go(-1);">
+                        Cancel
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- start -->
+  </div>
+</div>
+{% endblock content %}
